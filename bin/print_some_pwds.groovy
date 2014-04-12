@@ -18,7 +18,7 @@ def factory = PasswordMaker.getFactory()
 printTen('Default Factory', factory.create())
 
 // 16 chars with numbers
-factory.setMinMaxChars(16, 16).setMainChars(CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES + CharacterSets.DIGITS)
+factory.setCharCount(16).setMainChars(CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES + CharacterSets.DIGITS)
 printTen('16 chars with digits', factory.create())
 
 // 12-24 chars with numbers & symbols
@@ -26,7 +26,7 @@ factory.setMinMaxChars(12, 24).setMainChars(CharacterSets.LOWER_CASES + Characte
 printTen('12-24 chars with digits & symbols', factory.create())
 
 // 8 chars, including one uppercase and 1 to 3 digits
-factory.reset().setMinMaxChars(8, 8).setMainChars(CharacterSets.LOWER_CASES)
+factory.reset().setCharCount(8).setMainChars(CharacterSets.LOWER_CASES)
 factory.addAltCharGroup(CharacterSets.UPPER_CASES, 1, 1).addAltCharGroup(CharacterSets.DIGITS, 1, 3)
 printTen('8 chars, including one uppercase and 1 to 3 digits', factory.create())
 
@@ -36,6 +36,6 @@ factory.addAltCharGroup(CharacterSets.UPPER_CASES, 2, 2).addAltCharGroup(Charact
 printTen('12 chars, with 2 uppercase, 1 to 3 digits and 1 or 2 symbols', factory.create())
 
 // 16 chars, safe upper and lower cases, 1-3 digits, 1-2 symbols
-factory.reset().setMinMaxChars(16, 16).setMainChars(CharacterSets.SAFE_LOWER_CASES + CharacterSets.SAFE_UPPER_CASES)
+factory.reset().setCharCount(16).setMainChars(CharacterSets.SAFE_LOWER_CASES + CharacterSets.SAFE_UPPER_CASES)
 factory.addAltCharGroup(CharacterSets.SAFE_DIGITS, 1, 3).addAltCharGroup(CharacterSets.EASY_SYMBOLS, 1, 2)
 printTen('16 chars, safe upper and lower cases, 1-3 digits, 1-2 symbols', factory.create())

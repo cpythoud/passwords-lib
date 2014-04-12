@@ -45,6 +45,10 @@ public class PasswordMaker {
         private List<Integer> altCharMins;
         private List<Integer> altCharMax;
 
+        public Factory setCharCount(final int count) {
+            return setMinMaxChars(count, count);
+        }
+
         public Factory setMinMaxChars(final int minChars, final int maxChars) {
             if (minChars < 4)
                 throw new IllegalArgumentException("minChars must be 4 or less; value received = " + minChars);
