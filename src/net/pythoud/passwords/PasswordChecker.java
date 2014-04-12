@@ -92,6 +92,10 @@ public class PasswordChecker {
         }
     }
 
+    public static PasswordChecker getBasicPasswordChecker() {
+        return getFactory().addCharSet(CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES + CharacterSets.DIGITS, 1).create();
+    }
+
     public boolean isTooShort() {
         return tooShort;
     }
