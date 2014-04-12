@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<project name="Password Maker" default="compile" basedir=".">
+    <property name="src.dir" value="src"/>
+    <property name="src-ascii.dir" value="src-ascii" />
+
+    <property name="build.dir" value="build"/>
+    <property name="build.classes" value="${build.dir}/classes"/>
+
+    <property name="javadoc.dir" value="javadoc"/>
+
+    <target name="compile" description="Compile code" depends="native2ascii">
+        <mkdir dir="${build.classes}" />
+        <javac srcdir="${src-ascii.dir}" destdir="${build.classes}"/>
+    </target>
+
+    <target name="native2ascii">
+        <mkdir dir="${src-ascii.dir}" />
+        <native2ascii src="${src.dir}" dest="${src-ascii.dir}" includes="**/*.java" />
+    </target>
+
+    <target name="cleanup" description="Clean up compiled files">
+        <delete dir="${build.dir}" />
+        <delete dir="${src-ascii.dir}" />
+        <delete dir="${javadoc.dir}" />
+    </target>
+
+    <target name="jar" description="Create file password-maker-(version).jar" depends="cleanup,compile">
+        <java classname="net.pythoud.passwords.Version" classpath="${build.classes}" outputproperty="jar.version" />
+        <jar destfile="${build.dir}/password-maker-${jar.version}.jar" basedir="${build.classes}" includes="net/pythoud/passwords/**/*" />
+    </target>
+
+    <target name="doc" description="Create javadoc for this project" depends="native2ascii">
+        <mkdir dir="${javadoc.dir}" />
+        <javadoc sourcepath="${src-ascii.dir}" destdir="${javadoc.dir}" />
+    </target>
+
+</project>
