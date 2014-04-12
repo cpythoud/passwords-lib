@@ -50,7 +50,7 @@ public class PasswordMaker {
         private List<Integer> altCharMins;
         private List<Integer> altCharMax;
 
-        public void setMinMaxChars(final int minChars, final int maxChars) {
+        public Factory setMinMaxChars(final int minChars, final int maxChars) {
             if (minChars < 4)
                 throw new IllegalArgumentException("minChars must be 4 or less; value received = " + minChars);
             if (maxChars < minChars)
@@ -58,18 +58,22 @@ public class PasswordMaker {
 
             this.minChars = minChars;
             this.maxChars = maxChars;
+
+            return this;
         }
 
-        public void setMainChars(final String mainChars) {
+        public Factory setMainChars(final String mainChars) {
             if (mainChars == null)
                 throw new NullPointerException("mainChars cannot be null");
             if (mainChars.length() < 4)
                 throw new IllegalArgumentException("mainChars must contained at least 4 characters (current count is " + mainChars.length() + ")");
 
             this.mainChars = mainChars;
+
+            return this;
         }
 
-        public void addAltCharGroup(final String chars, final int minChars, final int maxChars) {
+        public Factory addAltCharGroup(final String chars, final int minChars, final int maxChars) {
             if (chars == null)
                 throw new NullPointerException("chars cannot be null");
             if (chars.isEmpty())
@@ -88,6 +92,8 @@ public class PasswordMaker {
             altCharGroups.add(chars);
             altCharMins.add(minChars);
             altCharMax.add(maxChars);
+
+            return this;
         }
 
         public PasswordMaker create() {
