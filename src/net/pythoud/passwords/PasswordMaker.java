@@ -10,11 +10,6 @@ import java.util.Random;
  */
 public class PasswordMaker {
 
-    public static final String LOWER_CASES = "abcdefghijklmnopqrstuvwxyz";
-    public static final String UPPER_CASES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    public static final String DIGITS = "0123456789";
-    public static final String EASY_SYMBOLS = "!@#$%&*()-=+;:,./?";
-
     private final int minChars;
     private final int maxChars;
 
@@ -44,7 +39,7 @@ public class PasswordMaker {
         private int minChars = 12;
         private int maxChars = 12;
 
-        private String mainChars = LOWER_CASES + UPPER_CASES;
+        private String mainChars = CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES;
         private List<String> altCharGroups;
 
         private List<Integer> altCharMins;
@@ -118,7 +113,7 @@ public class PasswordMaker {
             minChars = 12;
             maxChars = 12;
 
-            mainChars = LOWER_CASES + UPPER_CASES;
+            mainChars = CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES;
             altCharGroups = null;
 
             altCharMins = null;
