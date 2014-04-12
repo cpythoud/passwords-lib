@@ -113,6 +113,19 @@ public class PasswordMaker {
                 sum += max;
             return sum > minChars;
         }
+
+        public Factory reset() {
+            minChars = 12;
+            maxChars = 12;
+
+            mainChars = LOWER_CASES + UPPER_CASES;
+            altCharGroups = null;
+
+            altCharMins = null;
+            altCharMax = null;
+
+            return this;
+        }
     }
 
     public String getPassword() {
