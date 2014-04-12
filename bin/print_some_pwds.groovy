@@ -19,3 +19,7 @@ printTen('Default Factory', factory.create())
 // 16 chars with numbers
 factory.setMinMaxChars(16, 16).setMainChars(PasswordMaker.LOWER_CASES + PasswordMaker.UPPER_CASES + PasswordMaker.DIGITS)
 printTen('16 chars with digits', factory.create())
+
+// 12-24 chars with numbers & symbols
+factory.setMinMaxChars(12, 24).setMainChars(PasswordMaker.LOWER_CASES + PasswordMaker.UPPER_CASES + PasswordMaker.DIGITS + PasswordMaker.EASY_SYMBOLS)
+printTen('12-24 chars with digits & symbols', factory.create())
