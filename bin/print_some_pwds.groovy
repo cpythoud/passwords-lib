@@ -28,3 +28,9 @@ printTen('12-24 chars with digits & symbols', factory.create())
 factory.reset().setMinMaxChars(8, 8).setMainChars(PasswordMaker.LOWER_CASES)
 factory.addAltCharGroup(PasswordMaker.UPPER_CASES, 1, 1).addAltCharGroup(PasswordMaker.DIGITS, 1, 3)
 printTen('8 chars, including one uppercase and 1 to 3 digits', factory.create())
+
+// 12 chars, with 2 uppercase, 1 to 3 digits and 1 or 2 symbols
+factory.reset().setMainChars(PasswordMaker.LOWER_CASES)
+factory.addAltCharGroup(PasswordMaker.UPPER_CASES, 2, 2).addAltCharGroup(PasswordMaker.DIGITS, 1, 3).addAltCharGroup(PasswordMaker.EASY_SYMBOLS, 1, 2)
+printTen('12 chars, with 2 uppercase, 1 to 3 digits and 1 or 2 symbols', factory.create())
+
