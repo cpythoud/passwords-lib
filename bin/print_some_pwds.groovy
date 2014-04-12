@@ -39,3 +39,7 @@ printTen('12 chars, with 2 uppercase, 1 to 3 digits and 1 or 2 symbols', factory
 factory.reset().setCharCount(16).setMainChars(CharacterSets.SAFE_LOWER_CASES + CharacterSets.SAFE_UPPER_CASES)
 factory.addAltCharGroup(CharacterSets.SAFE_DIGITS, 1, 3).addAltCharGroup(CharacterSets.EASY_SYMBOLS, 1, 2)
 printTen('16 chars, safe upper and lower cases, 1-3 digits, 1-2 symbols', factory.create())
+
+// pin code
+factory.reset().setCharCount(4).setMainChars(CharacterSets.DIGITS)
+printTen('PIN Codes', factory.create())
