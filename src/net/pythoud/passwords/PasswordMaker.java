@@ -144,7 +144,7 @@ public class PasswordMaker {
     }
 
     private int getRandomIntBetween(final int start, final int end) {
-        assert (start > 0) : "start < 0; start = " + start;
+        assert (start >= 0) : "start < 0; start = " + start;
         assert (end >= start) : "end < start; start = " + start + ", end = " + end;
 
         if (start == end)
