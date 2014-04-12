@@ -36,6 +36,10 @@ public class PasswordMaker {
         this.altCharMax = altCharMax;
     }
 
+    public static Factory getFactory() {
+        return new Factory();
+    }
+
     public static class Factory {
         private int minChars = 12;
         private int maxChars = 12;
