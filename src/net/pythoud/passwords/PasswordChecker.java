@@ -93,7 +93,11 @@ public class PasswordChecker {
     }
 
     public static PasswordChecker getBasicPasswordChecker() {
-        return getFactory().addCharSet(CharacterSets.LOWER_CASES + CharacterSets.UPPER_CASES + CharacterSets.DIGITS, 1).create();
+        final Factory factory = getFactory();
+        factory.addCharSet(CharacterSets.LOWER_CASES, 1);
+        factory.addCharSet(CharacterSets.UPPER_CASES, 1);
+        factory.addCharSet(CharacterSets.DIGITS, 1);
+        return factory.create();
     }
 
     public boolean isTooShort() {
@@ -125,7 +129,6 @@ public class PasswordChecker {
         }
 
         final List<Integer> charCategoryCounts = getInitialCountList();
-        //final List<String> characters = getLetterList(password);
 
         for (String letter: getLetterList(password)) {
             if (!updateCounts(letter, charCategoryCounts)) {
