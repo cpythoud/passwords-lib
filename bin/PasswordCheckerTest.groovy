@@ -56,7 +56,7 @@ class PasswordCheckerTest extends GroovyTestCase {
         assertTrue(checker.isCharacterTypeMissing())
     }
 
-    PasswordChecker getComplexChecker() {
+    static PasswordChecker getComplexChecker() {
         PasswordChecker.Factory factory = PasswordChecker.getFactory()
         factory.setMinMaxCharCount(16, 32)
         factory.addCharSet(CharacterSets.LOWER_CASES, 1).addCharSet(CharacterSets.UPPER_CASES, 1)
