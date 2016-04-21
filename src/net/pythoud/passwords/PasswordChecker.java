@@ -55,8 +55,8 @@ public class PasswordChecker {
                 throw new IllegalArgumentException("charSet cannot be null");
             if (charSet.isEmpty())
                 throw new IllegalArgumentException("charSet cannot be empty");
-            if (minCount < 1)
-                throw new IllegalArgumentException("Minimum Character Count must be at least 1. Value received: " + minCount);
+            if (minCount < 0)
+                throw new IllegalArgumentException("Minimum Character Count cannot be negative. Value received: " + minCount);
 
             charSets.add(charSet);
             minCountsFromCharSets.add(minCount);
