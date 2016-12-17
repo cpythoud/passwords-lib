@@ -30,6 +30,14 @@
         <jar destfile="${build.dir}/password-maker-${jar.version}.jar" basedir="${build.classes}" includes="net/pythoud/passwords/**/*" />
     </target>
 
+    <target name="jar-src" description="Create file password-maker-(version).jar" depends="cleanup,compile">
+        <java classname="net.pythoud.passwords.Version" classpath="${build.classes}" outputproperty="jar.version" />
+        <jar destfile="${build.dir}/password-maker-${jar.version}.jar">
+            <fileset dir="${build.classes}" includes="net/pythoud/passwords/**/*" />
+            <fileset dir="${src-ascii.dir}" includes="net/pythoud/passwords/**/*" />
+        </jar>
+    </target>
+
     <target name="doc" description="Create javadoc for this project" depends="native2ascii">
         <mkdir dir="${javadoc.dir}" />
         <javadoc sourcepath="${src-ascii.dir}" destdir="${javadoc.dir}" />

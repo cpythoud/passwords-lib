@@ -148,6 +148,39 @@ public class PasswordChecker {
         return true;
     }
 
+    public boolean checkAll(final String password) {
+        resetFlags();
+        boolean ok = true;
+
+        if (password.length() < minCharCount) {
+            tooShort = true;
+            ok = false;
+        }
+        if (password.length() > maxCharCount) {
+            tooLong = true;
+            ok = false;
+        }
+
+        final List<Integer> charCategoryCounts = getInitialCountList();
+
+        for (String letter: getLetterList(password)) {
+            if (!updateCounts(letter, charCategoryCounts)) {
+                illegalChar = true;
+                ok = false;
+            }
+        }
+
+        final int sets = charSets.size();
+        for (int i = 0; i < sets; ++i) {
+            if (charCategoryCounts.get(i) < minCountsInCharSets.get(i)) {
+                missingChar = true;
+                ok = false;
+            }
+        }
+
+        return ok;
+    }
+
     private void resetFlags() {
         tooShort = false;
         tooLong = false;
