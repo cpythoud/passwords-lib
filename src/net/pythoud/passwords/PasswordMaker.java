@@ -3,7 +3,6 @@ package net.pythoud.passwords;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * ...
@@ -19,16 +18,26 @@ public class PasswordMaker {
     private final List<Integer> altCharMins;
     private final List<Integer> altCharMax;
 
-    private final Random random = new Random();
+    private final RandomUIntGenerator randomUIntGenerator;
 
-    private PasswordMaker(final int minChars, final int maxChars, final String mainChars,
-                          final List<String> altCharGroups, final List<Integer> altCharMins, final List<Integer> altCharMax) {
+    //private final Random random = new Random();
+
+    private PasswordMaker(
+            final int minChars,
+            final int maxChars,
+            final String mainChars,
+            final List<String> altCharGroups,
+            final List<Integer> altCharMins,
+            final List<Integer> altCharMax,
+            final RandomUIntGenerator randomUIntGenerator)
+    {
         this.minChars = minChars;
         this.maxChars = maxChars;
         this.mainChars = mainChars;
         this.altCharGroups = altCharGroups;
         this.altCharMins = altCharMins;
         this.altCharMax = altCharMax;
+        this.randomUIntGenerator = randomUIntGenerator;
     }
 
     public static Factory getFactory() {
@@ -44,6 +53,8 @@ public class PasswordMaker {
 
         private List<Integer> altCharMins;
         private List<Integer> altCharMax;
+
+        private RandomUIntGenerator randomUIntGenerator;
 
         public Factory setCharCount(final int count) {
             return setMinMaxChars(count, count);
@@ -95,15 +106,34 @@ public class PasswordMaker {
             return this;
         }
 
+        public Factory setRandomUIntGenerator(final RandomUIntGenerator randomUIntGenerator) {
+            this.randomUIntGenerator = randomUIntGenerator;
+
+            return this;
+        }
+
         public PasswordMaker create() {
             if (altCharGroups == null)
-                return new PasswordMaker(minChars, maxChars, mainChars, null, null, null);
+                return new PasswordMaker(
+                        minChars,
+                        maxChars,
+                        mainChars,
+                        null,
+                        null,
+                        null,
+                        randomUIntGenerator == null ? new Java6RandomUIntGenerator() : randomUIntGenerator);
 
             if (extraCharsMaxSumIsMoreThanMinChars())
                 throw new IllegalStateException("Sum of possible optional characters is more than minimum characters in password.");
 
-            return new PasswordMaker(minChars, maxChars, mainChars, Collections.unmodifiableList(altCharGroups),
-                    Collections.unmodifiableList(altCharMins), Collections.unmodifiableList(altCharMax));
+            return new PasswordMaker(
+                    minChars,
+                    maxChars,
+                    mainChars,
+                    Collections.unmodifiableList(altCharGroups),
+                    Collections.unmodifiableList(altCharMins),
+                    Collections.unmodifiableList(altCharMax),
+                    randomUIntGenerator == null ? new Java6RandomUIntGenerator() : randomUIntGenerator);
         }
 
         private boolean extraCharsMaxSumIsMoreThanMinChars() {
@@ -150,39 +180,39 @@ public class PasswordMaker {
             return start;
 
         if (start == 0)
-            return random.nextInt(end);
+            return randomUIntGenerator.getNextUInt(end);
 
-        return start + random.nextInt(end - start + 1);
+        return start + randomUIntGenerator.getNextUInt(end - start + 1);
     }
 
     private void populateChars(final Password password, final String chars, final int count) {
         final List<Integer> availableIndexes = password.getUnsetIndexes();
         for (int i = 0; i < count; ++i) {
-            final int index = random.nextInt(availableIndexes.size());
+            final int index = randomUIntGenerator.getNextUInt(availableIndexes.size());
             password.setCharAt(availableIndexes.get(index), getRandomChar(chars));
             availableIndexes.remove(index);
         }
     }
 
     private String getRandomChar(final String chars) {
-        final int index = random.nextInt(chars.length());
+        final int index = randomUIntGenerator.getNextUInt(chars.length());
         return chars.substring(index, index + 1);
     }
 
     private static class Password {
         private final List<String> chars;
 
-        public Password(final int length) {
+        Password(final int length) {
             chars = new ArrayList<String>();
             for (int i = 0; i < length; ++i)
                 chars.add("");
         }
 
-        public void setCharAt(final int index, final String character) {
+        void setCharAt(final int index, final String character) {
             chars.set(index, character);
         }
 
-        public List<Integer> getUnsetIndexes() {
+        List<Integer> getUnsetIndexes() {
             final List<Integer> indexes = new ArrayList<Integer>();
 
             int index = 0;
