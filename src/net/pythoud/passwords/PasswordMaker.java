@@ -61,7 +61,7 @@ public class PasswordMaker {
         }
 
         public Factory setMinMaxChars(final int minChars, final int maxChars) {
-            if (minChars < 4)
+            if (minChars < 2)
                 throw new IllegalArgumentException("minChars must be 4 or less; value received = " + minChars);
             if (maxChars < minChars)
                 throw new IllegalArgumentException("maxChars cannont be smaller than minChars: " + maxChars + " < " + minChars);
@@ -75,7 +75,7 @@ public class PasswordMaker {
         public Factory setMainChars(final String mainChars) {
             if (mainChars == null)
                 throw new NullPointerException("mainChars cannot be null");
-            if (mainChars.length() < 4)
+            if (mainChars.length() < 2)
                 throw new IllegalArgumentException("mainChars must contained at least 4 characters (current count is " + mainChars.length() + ")");
 
             this.mainChars = mainChars;
