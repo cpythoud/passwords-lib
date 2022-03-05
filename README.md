@@ -1,4 +1,5 @@
 passwords-lib
 =============
 
-Java Library to generate random password
+This project has been abandoned and replaced by
+[Password Rodeo](https://github.com/cpythoud/password-rodeo)
